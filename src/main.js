@@ -64,39 +64,28 @@ function toggleTheme() {
 initTheme()
 themeToggle?.addEventListener('click', toggleTheme)
 
-const panels = {
-  about: document.querySelector('[data-panel="about"]'),
-  work: document.querySelector('[data-panel="work"]'),
-  services: document.querySelector('[data-panel="services"]'),
+const PANEL_ROUTES = {
+  about: { hash: '#about' },
+  work: { hash: '#my-work', aliases: ['#work'] },
+  services: { hash: '#etc', aliases: ['#what-i-do'] },
 }
 
-const panelHashes = {
-  about: '#about',
-  work: '#my-work',
-  services: '#etc',
-}
+const hashPanels = Object.fromEntries(
+  Object.entries(PANEL_ROUTES).flatMap(([name, route]) => [
+    [route.hash, name],
+    ...(route.aliases ?? []).map((alias) => [alias, name]),
+  ]),
+)
 
-const hashPanels = {
-  '#about': 'about',
-  '#my-work': 'work',
-  '#etc': 'services',
-  '#what-i-do': 'services',
-  '#work': 'work',
-}
+const panels = Object.fromEntries(
+  [...document.querySelectorAll('[data-panel]')].map((el) => [el.dataset.panel, el]),
+)
 
 const navLinks = document.querySelectorAll('.site-nav [data-nav]')
 const panelTriggers = document.querySelectorAll('[data-nav]')
 const bracket = document.querySelector('.hand-bracket')
 const bracketLeft = document.querySelector('.hand-bracket__left')
 const bracketRight = document.querySelector('.hand-bracket__right')
-const secretZone = document.querySelector('.secret-easter-egg__zone')
-const secretContent = document.querySelector('.secret-easter-egg__content')
-
-const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-const SECRET_PROXIMITY_RADIUS = 320
-const SECRET_MOBILE_DELAY_MS = 1200
-
-let secretMobileTimer = null
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max)
@@ -170,7 +159,7 @@ function buildBracketPaths(peakX) {
 }
 
 function syncNavLinkWidths() {
-  const nav = document.querySelector('.site-header--site .site-nav')
+  const nav = document.querySelector('.site-header .site-nav')
   const workLink = nav?.querySelector('[data-nav="work"]')
   if (!nav || !workLink) return
 
@@ -196,61 +185,6 @@ function updateBracket() {
   bracketRight.setAttribute('d', paths.right)
 }
 
-function distanceToRect(x, y, rect) {
-  const dx = Math.max(rect.left - x, 0, x - rect.right)
-  const dy = Math.max(rect.top - y, 0, y - rect.bottom)
-  return Math.hypot(dx, dy)
-}
-
-function setSecretOpacity(value) {
-  if (!secretContent) return
-  secretContent.style.setProperty('--secret-opacity', String(value))
-}
-
-function secretProximityOpacity(t) {
-  return t * t * t
-}
-
-function updateSecretProximity(clientX, clientY) {
-  if (!secretZone || panels.work?.hidden) return
-
-  const rect = secretZone.getBoundingClientRect()
-  const dist = distanceToRect(clientX, clientY, rect)
-  const t = clamp(1 - dist / SECRET_PROXIMITY_RADIUS, 0, 1)
-  setSecretOpacity(secretProximityOpacity(t))
-}
-
-function clearSecretReveal() {
-  if (secretMobileTimer) {
-    clearTimeout(secretMobileTimer)
-    secretMobileTimer = null
-  }
-  setSecretOpacity(0)
-}
-
-function scheduleSecretReveal() {
-  clearSecretReveal()
-  if (canHover || panels.work?.hidden) return
-
-  secretMobileTimer = setTimeout(() => {
-    setSecretOpacity(1)
-    secretMobileTimer = null
-  }, SECRET_MOBILE_DELAY_MS)
-}
-
-function syncSecretReveal(panelName) {
-  if (panelName !== 'work') {
-    clearSecretReveal()
-    return
-  }
-
-  if (canHover) {
-    setSecretOpacity(0)
-  } else {
-    scheduleSecretReveal()
-  }
-}
-
 function showPanel(name) {
   Object.entries(panels).forEach(([key, panel]) => {
     if (panel) panel.hidden = key !== name
@@ -268,9 +202,7 @@ function showPanel(name) {
 
   requestAnimationFrame(updateBracket)
 
-  syncSecretReveal(name)
-
-  const hash = panelHashes[name] ?? '#about'
+  const hash = PANEL_ROUTES[name]?.hash ?? '#about'
   if (location.hash !== hash) {
     history.replaceState(null, '', hash)
   }
@@ -309,7 +241,7 @@ function preventOrphans(container) {
     acceptNode(node) {
       const parent = node.parentElement
       if (!parent) return NodeFilter.FILTER_REJECT
-      if (parent.closest('.about-tags')) return NodeFilter.FILTER_REJECT
+      if (parent.closest('.about-tags--pronouns')) return NodeFilter.FILTER_REJECT
       if (parent.closest('script, style')) return NodeFilter.FILTER_REJECT
       if (!node.textContent?.trim()) return NodeFilter.FILTER_REJECT
       return NodeFilter.FILTER_ACCEPT
@@ -343,18 +275,6 @@ window.addEventListener('resize', () => {
   syncNavLinkWidths()
   updateBracket()
 })
-
-if (canHover && secretZone) {
-  document.addEventListener('mousemove', (event) => {
-    if (!panels.work?.hidden) {
-      updateSecretProximity(event.clientX, event.clientY)
-    }
-  })
-
-  document.addEventListener('mouseleave', () => {
-    setSecretOpacity(0)
-  })
-}
 
 preventOrphans(panels.about)
 preventOrphans(panels.services)
@@ -418,9 +338,21 @@ function tickChyron(now) {
   requestAnimationFrame(tickChyron)
 }
 
+function cloneChyronLoopGroup() {
+  if (!chyronGroup || !chyronTrack) return
+
+  const clone = chyronGroup.cloneNode(true)
+  clone.setAttribute('aria-hidden', 'true')
+  clone.querySelectorAll('.chyron__item').forEach((link) => {
+    link.setAttribute('tabindex', '-1')
+  })
+  chyronTrack.appendChild(clone)
+}
+
 function initChyron() {
   if (!chyronViewport || !chyronTrack) return
 
+  cloneChyronLoopGroup()
   measureChyronLoop()
   chyronAutoScrolling = !prefersReducedMotion()
   if (chyronAutoScrolling) requestAnimationFrame(tickChyron)
