@@ -183,26 +183,9 @@ function activeNavLink() {
   return document.querySelector('.site-nav [data-nav].nav-link--active')
 }
 
-const WORK_CLUSTER_MQ = window.matchMedia('(min-width: 40.0625rem)')
-
-function syncBracketWidth() {
-  if (!bracket || !panels.work) return
-
-  const onWork = !panels.work.hidden
-  if (onWork && WORK_CLUSTER_MQ.matches && panels.work.offsetWidth > 0) {
-    bracket.style.width = `${panels.work.offsetWidth}px`
-    bracket.style.maxWidth = '100%'
-  } else {
-    bracket.style.width = ''
-    bracket.style.maxWidth = ''
-  }
-}
-
 function updateBracket() {
   const link = activeNavLink()
   if (!bracket || !bracketLeft || !bracketRight || !link) return
-
-  syncBracketWidth()
 
   const bracketRect = bracket.getBoundingClientRect()
   const linkRect = link.getBoundingClientRect()

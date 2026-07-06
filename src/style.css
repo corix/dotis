@@ -18,8 +18,9 @@
   --chyron-neon-magenta: #e878c8;
   --chyron-neon-lime: #c8f048;
   --chyron-link: color-mix(in srgb, var(--on-dark) 68%, transparent);
-  --font: 'Spline Sans Mono', ui-monospace, monospace;
-  --content-measure: 36rem;
+  --font: 'Overpass', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Overpass Mono', ui-monospace, monospace;
+  --page-width: 48rem;
   --chyron-height: 2.25rem;
 }
 
@@ -94,7 +95,7 @@ b {
 }
 
 .page {
-  max-width: 52rem;
+  max-width: var(--page-width);
   margin: 0 auto;
   padding: 2rem 1.5rem 4rem;
 }
@@ -107,7 +108,7 @@ b {
 
 .site-title {
   margin: 0 0 0.5rem;
-  font-family: var(--font);
+  font-family: var(--font-mono);
   font-size: clamp(2.5rem, 8vw, 3.75rem);
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -159,10 +160,6 @@ b {
 
 .site-title a {
   color: inherit;
-}
-
-.quote {
-  font-family: var(--font);
 }
 
 .underline {
@@ -225,7 +222,7 @@ a:not(.work-col):hover {
   display: flex;
   gap: 1.5rem;
   margin-bottom: 1rem;
-  font-family: var(--font);
+  font-family: var(--font-mono);
   font-size: 1.35rem;
 }
 
@@ -248,7 +245,6 @@ a:not(.work-col):hover {
 .hand-bracket {
   display: block;
   width: 100%;
-  max-width: var(--content-measure);
   margin-inline: auto;
   height: 26px;
   color: var(--text);
@@ -259,12 +255,15 @@ a:not(.work-col):hover {
   margin-bottom: 1rem;
 }
 
+.page-content {
+  width: 90%;
+  margin-inline: auto;
+}
+
 /* About & etc */
 
 .about,
 .services {
-  max-width: var(--content-measure);
-  margin-inline: auto;
   padding-top: 0.75rem;
   font-size: 0.95rem;
   text-align: left;
@@ -272,7 +271,7 @@ a:not(.work-col):hover {
 
 .services-heading {
   margin: 0 0 0.75rem;
-  font-family: var(--font);
+  font-family: var(--font-mono);
   font-size: 1.35rem;
   letter-spacing: 0.02em;
 }
@@ -347,6 +346,7 @@ a:not(.work-col):hover {
   display: inline-block;
   margin: 0;
   padding: 0.1em 0.45em 0.14em;
+  font-family: var(--font-mono);
   font-size: 0.82em;
   letter-spacing: 0.01em;
   color: var(--text);
@@ -419,7 +419,6 @@ a:not(.work-col):hover {
 /* Site layout */
 
 .page--site {
-  max-width: 58rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -460,7 +459,7 @@ a:not(.work-col):hover {
   }
 }
 
-@media (min-width: 58rem) {
+@media (min-width: 64rem) {
   .page--site {
     padding-top: calc(5.5rem + var(--chyron-height, 2.25rem));
   }
@@ -523,11 +522,14 @@ a:not(.work-col):hover {
   --work-sub-size: 0.82rem;
   --work-center-size: var(--work-sub-size);
   --work-title-bottom: calc(var(--work-title-size) * 0.92 - 1.15rem);
+  padding-top: 1rem;
+}
+
+.work-grid > .page-content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.5rem 2.5rem;
   align-items: start;
-  padding-top: 1rem;
 }
 
 .work-col {
@@ -544,6 +546,7 @@ a:not(.work-col):hover {
   grid-row: 1;
   z-index: 1;
   text-align: left;
+  justify-self: start;
   width: max-content;
   min-width: max-content;
 }
@@ -560,7 +563,7 @@ a:not(.work-col):hover {
 
 .work-col__title {
   margin: 0 0 1.25rem;
-  font-family: var(--font);
+  font-family: var(--font-mono);
   font-size: var(--work-title-size);
   font-weight: 400;
   line-height: 0.92;
@@ -644,7 +647,6 @@ a.work-col:hover .work-col__title {
 .design-script {
   display: block;
   margin-top: 0.15em;
-  font-family: var(--font);
   font-size: 0.62em;
   font-style: normal;
   letter-spacing: 0.03em;
@@ -733,6 +735,7 @@ a.work-col:hover .work-col__title {
 }
 
 .axis-label {
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1;
   white-space: nowrap;
@@ -790,7 +793,6 @@ a.work-col:hover .work-col__title {
 
 .secret-third {
   margin: 0;
-  font-family: var(--font);
   font-size: 0.72rem;
   font-weight: 400;
   color: var(--accent);
@@ -823,7 +825,7 @@ a.work-col:hover .work-col__title {
   border-bottom: 1.5px solid color-mix(in srgb, var(--on-dark) 18%, transparent);
   background: var(--ink-charcoal);
   color: var(--on-dark);
-  font-family: var(--font);
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   line-height: 1;
   text-transform: uppercase;
@@ -939,28 +941,25 @@ a.work-col:hover .work-col__title {
   }
 }
 
-/* Tablet and up: stay unstacked, center the cluster */
+/* Tablet and up: full-width row, blocks at opposite edges */
 @media (min-width: 40.0625rem) {
-  .work-grid {
-    grid-template-columns: max-content minmax(3.25rem, 4.5rem) max-content;
+  .work-grid > .page-content {
+    grid-template-columns: 1fr 1fr;
     gap: 0;
-    width: fit-content;
-    max-width: 100%;
-    margin-inline: auto;
   }
 
   .work-col--left {
     grid-column: 1;
     grid-row: 1;
-    justify-self: end;
+    justify-self: start;
     text-align: left;
     align-items: flex-start;
   }
 
   .work-col--right {
-    grid-column: 3;
+    grid-column: 2;
     grid-row: 1;
-    justify-self: start;
+    justify-self: end;
     text-align: right;
     align-items: flex-end;
   }
@@ -974,10 +973,9 @@ a.work-col:hover .work-col__title {
 
 /* Stack work columns only on narrow viewports */
 @media (max-width: 40rem) {
-  .work-grid {
+  .work-grid > .page-content {
     grid-template-columns: 1fr;
     gap: 2rem;
-    width: auto;
   }
 
   .work-col--left,
