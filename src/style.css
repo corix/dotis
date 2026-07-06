@@ -812,20 +812,58 @@ a.work-col:hover .work-col__title {
   }
 }
 
-/* Stack work columns when viewport is too narrow for axis layout */
-@media (max-width: 58rem) {
+/* Middle widths: stay unstacked, center the cluster */
+@media (max-width: 58rem) and (min-width: 40.0625rem) {
+  .work-grid {
+    grid-template-columns: max-content minmax(3.25rem, 4.5rem) max-content;
+    gap: 0;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    --work-title-size: clamp(1.6rem, 3.6vw, 2.25rem);
+    --work-tagline-size: clamp(0.78rem, 1.8vw, 0.92rem);
+  }
+
+  .work-col--left {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .work-col--right {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: start;
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .work-col--center {
+    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+}
+
+/* Stack work columns only on narrow viewports */
+@media (max-width: 40rem) {
   .work-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
+    width: auto;
   }
 
   .work-col--left,
   .work-col--right {
     grid-column: auto;
     grid-row: auto;
-    justify-self: start;
-    text-align: left;
-    align-items: flex-start;
+    justify-self: center;
+    text-align: center;
+    align-items: center;
+    width: auto;
+    min-width: 0;
   }
 
   .work-col--left .work-col__title,

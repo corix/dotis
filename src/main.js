@@ -395,7 +395,6 @@ function initChyron() {
     chyronDragMoved = false
     chyronDragStartX = event.clientX
     chyronDragScrollLeft = chyronViewport.scrollLeft
-    chyronViewport.setPointerCapture(event.pointerId)
   })
 
   chyronViewport.addEventListener('pointermove', (event) => {
@@ -405,6 +404,7 @@ function initChyron() {
       chyronDragging = true
       chyronDragMoved = true
       chyronViewport.classList.add('is-dragging')
+      chyronViewport.setPointerCapture(event.pointerId)
     }
 
     if (!chyronDragging) return
@@ -414,14 +414,15 @@ function initChyron() {
   })
 
   function endChyronDrag(event) {
-    if (!chyronDragging) return
+    if (chyronDragging) {
+      chyronViewport.classList.remove('is-dragging')
+
+      if (event.pointerId !== undefined && chyronViewport.hasPointerCapture(event.pointerId)) {
+        chyronViewport.releasePointerCapture(event.pointerId)
+      }
+    }
 
     chyronDragging = false
-    chyronViewport.classList.remove('is-dragging')
-
-    if (event.pointerId !== undefined && chyronViewport.hasPointerCapture(event.pointerId)) {
-      chyronViewport.releasePointerCapture(event.pointerId)
-    }
   }
 
   chyronViewport.addEventListener('pointerup', endChyronDrag)
