@@ -3,10 +3,174 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dotis</title>
+    <title>cori is typing — organizer, content design, campaign tech</title>
+    <meta
+      name="description"
+      content="Cori is an organizer and tech worker offering content design, UX writing, product design, campaign operations, nonprofit consulting, and civic tech."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div id="app"></div>
+  <body class="page-typing">
+    <div class="page page--site">
+      <header class="site-header site-header--site">
+        <h1 class="site-title">cori is typing<span class="typing-ellipsis" aria-hidden="true"><span class="typing-ellipsis__dot">.</span><span class="typing-ellipsis__dot">.</span><span class="typing-ellipsis__dot">.</span></span></h1>
+        <nav class="site-nav" aria-label="Main">
+          <a href="#about" class="nav-link nav-link--active" data-nav="about" aria-current="page">about</a>
+          <a href="#my-work" class="nav-link" data-nav="work">my work</a>
+          <a href="#etc" class="nav-link" data-nav="services">etc</a>
+        </nav>
+        <svg class="hand-bracket" viewBox="0 0 800 36" preserveAspectRatio="none" aria-hidden="true">
+          <path class="hand-bracket__left" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+          <path class="hand-bracket__right" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </header>
+
+      <main class="about" data-panel="about">
+        <p class="about-greeting">hey, you found me!</p>
+        <p>I'm Cori, an organizer and tech worker who helps humans and computers get along.</p>
+        <p>
+          If you like <a href="#my-work" data-nav="work">my work</a>,
+          feel free to
+          <a href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer">add me</a>
+          as an ethical friend under capitalism.
+        </p>
+        <div class="about-tags about-tags--pronouns">
+          <span class="about-tag about-tag--blue">he/him</span>
+          <span class="about-tag about-tag--rainbow">hey girl hey</span>
+          <span class="about-tag about-tag--red">comrade</span>
+        </div>
+      </main>
+
+      <main class="work-grid" data-panel="work" hidden>
+        <a href="https://cuttingwords.com" class="work-col work-col--left" target="_blank" rel="noopener noreferrer">
+          <h2 class="work-col__title">
+            cutting
+            <span class="work-col__title-line">words.com</span>
+          </h2>
+          <div class="work-col__copy">
+            <p class="work-col__tagline">content design for screens</p>
+            <p class="work-col__sub">got slop? say less</p>
+          </div>
+        </a>
+
+        <div class="work-col work-col--center">
+          <div class="axis-stack">
+            <svg class="axis-defs" width="0" height="0" aria-hidden="true">
+              <defs>
+                <marker id="axis-arrowhead" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                  <path d="M0,0 L7,3.5 L0,7" fill="none" stroke="currentColor" stroke-width="1.2" />
+                </marker>
+              </defs>
+            </svg>
+            <div class="axis-tech">
+              <span class="axis-label">tech</span>
+              <svg class="axis-arrow axis-arrow--tech" viewBox="0 0 72 10" aria-hidden="true">
+                <path d="M 68,5 Q 38,4 4,5" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#axis-arrowhead)" />
+              </svg>
+            </div>
+            <svg class="axis-divider" viewBox="0 0 2 96" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <line x1="1" y1="0" x2="1" y2="32" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 7" />
+              <line x1="1" y1="32" x2="1" y2="64" stroke="currentColor" stroke-width="1.5" stroke-dasharray="7 7" />
+              <line x1="1" y1="64" x2="1" y2="96" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 7" />
+            </svg>
+            <div class="axis-humanity">
+              <span class="axis-label">humanity</span>
+              <svg class="axis-arrow axis-arrow--humanity" viewBox="0 0 52 10" aria-hidden="true">
+                <path d="M 4,5 Q 26,6 48,5" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#axis-arrowhead)" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://hardly.services" class="work-col work-col--right" target="_blank" rel="noopener noreferrer">
+          <h2 class="work-col__title work-col__title--hardly">
+            hardly
+            <span class="design-script">a consultancy</span>
+          </h2>
+          <div class="work-col__copy">
+            <p class="work-col__tagline">organizing the streets</p>
+            <p class="work-col__sub"><span class="work-col__sub-line">websites, data, and spreadsheets</span><br>good enough for government work</p>
+          </div>
+        </a>
+      </main>
+
+      <main class="services" data-panel="services" hidden>
+        <section class="help-guide" aria-labelledby="help-guide-heading">
+          <h2 id="help-guide-heading" class="services-heading">not sure where to go?</h2>
+          <ul class="help-guide__list">
+            <li class="help-guide__item">
+              <p class="help-guide__q">are you a hiring manager for a design team?</p>
+              <p class="help-guide__a">
+                → <a href="https://cuttingwords.com" target="_blank" rel="noopener noreferrer">cutting words</a>
+              </p>
+            </li>
+            <li class="help-guide__item">
+              <p class="help-guide__q">are you a campaign staffer, civic tech worker, or run a nonprofit?</p>
+              <p class="help-guide__a">
+                → <a href="https://hardly.services" target="_blank" rel="noopener noreferrer">hardly consulting</a>
+              </p>
+            </li>
+            <li class="help-guide__item">
+              <p class="help-guide__q">are you lost? you can look, and you will find me</p>
+              <p class="help-guide__a">
+                →
+                <a href="https://www.youtube.com/watch?v=VdQY7BusJNU&t=110s" target="_blank" rel="noopener noreferrer"
+                  >time after time</a
+                >
+              </p>
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <div class="secret-easter-egg" aria-hidden="true">
+        <div class="secret-easter-egg__zone" tabindex="-1">
+          <!-- Add future work-panel easter egg content inside .secret-easter-egg__content -->
+          <div class="secret-easter-egg__content"></div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="chyron" aria-label="announcements">
+      <div class="chyron__viewport" tabindex="0">
+        <div class="chyron__track">
+          <div class="chyron__group">
+            <a class="chyron__item" href="https://abdulforsenate.com" target="_blank" rel="noopener noreferrer">
+              want medicare for all? phone bank for abdul for senate with me!
+            </a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+            <a class="chyron__item" href="https://buttonschool.com" target="_blank" rel="noopener noreferrer">
+              curious about vibe coding but allergic to bullshit? take my friend's class on ai for product designers!
+            </a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+            <a class="chyron__item" href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer">
+              hire me for your next website or leftist political project
+            </a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+          </div>
+          <div class="chyron__group" aria-hidden="true">
+            <a class="chyron__item" href="https://abdulforsenate.com" target="_blank" rel="noopener noreferrer" tabindex="-1">
+              want medicare for all? phone bank for abdul for senate with me!
+            </a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+            <a class="chyron__item" href="https://buttonschool.com" target="_blank" rel="noopener noreferrer" tabindex="-1">
+              curious about vibe coding but allergic to bullshit? take my friend's class on ai for product designers!
+            </a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+            <a class="chyron__item" href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer" tabindex="-1">
+              hire me for your next website or leftist political project
+            </a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
