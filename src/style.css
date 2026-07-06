@@ -87,12 +87,16 @@ body {
   font-family: var(--font);
   font-weight: 300;
   line-height: 1.6;
-  text-transform: lowercase;
 }
 
 strong,
 b {
   font-weight: 400;
+}
+
+h1,
+h2 {
+  text-transform: lowercase;
 }
 
 .page {
@@ -226,6 +230,7 @@ a:not(.work-col):hover {
   font-family: var(--font-mono);
   font-size: 1.35rem;
   font-weight: var(--font-mono-weight);
+  text-transform: lowercase;
 }
 
 .nav-link {
@@ -302,23 +307,34 @@ a:not(.work-col):hover {
 
 /* About page */
 
-.about .help-guide__q {
-  margin-bottom: 1.1rem;
+.about-intro-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0;
+  margin: 0 0 0.85rem;
+  line-height: 1.45;
 }
 
-.about .help-guide__item > p:not(.help-guide__q) {
+.about-intro-line .services-heading {
+  margin: 0 0.35em 0 0;
+}
+
+.about-intro__tail {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.about .help-guide > p {
   margin: 0 0 0.85rem;
   color: var(--text);
   text-wrap: pretty;
 }
 
-.about .help-guide__item > p:not(.help-guide__q):last-child {
+.about .help-guide > p:last-child {
   margin-bottom: 0;
-}
-
-.about-intro__lead {
-  display: block;
-  margin-bottom: 0.15rem;
 }
 
 .about-tags {
@@ -335,7 +351,7 @@ a:not(.work-col):hover {
   align-items: baseline;
   justify-content: flex-start;
   gap: 0.12rem 0.2rem;
-  margin: 0 0.15rem 0 0.25rem;
+  margin: 0 0.15rem 0 0.5rem;
   vertical-align: baseline;
 }
 
@@ -744,6 +760,7 @@ a.work-col:hover .work-col__title {
   font-weight: var(--font-mono-weight);
   line-height: 1;
   white-space: nowrap;
+  text-transform: lowercase;
 }
 
 .axis-arrow {
