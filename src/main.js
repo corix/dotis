@@ -1,5 +1,69 @@
 import './style.css'
 
+const THEME_STORAGE_KEY = 'theme'
+const THEME_TRANSITION_MS = 550
+const themeToggle = document.querySelector('.theme-toggle')
+
+function getStoredTheme() {
+  return localStorage.getItem(THEME_STORAGE_KEY)
+}
+
+function systemPrefersDark() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+function isDarkTheme() {
+  return document.documentElement.dataset.theme === 'dark'
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+function applyTheme(theme, { animate = false } = {}) {
+  const dark = theme === 'dark'
+  const root = document.documentElement
+  const shouldAnimate = animate && !prefersReducedMotion()
+
+  if (shouldAnimate) {
+    root.classList.add('theme-transition')
+  }
+
+  if (dark) {
+    root.dataset.theme = 'dark'
+  } else {
+    delete root.dataset.theme
+  }
+
+  themeToggle?.setAttribute('aria-pressed', String(dark))
+  themeToggle?.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode')
+
+  if (shouldAnimate) {
+    window.setTimeout(() => {
+      root.classList.remove('theme-transition')
+    }, THEME_TRANSITION_MS)
+  }
+}
+
+function initTheme() {
+  const stored = getStoredTheme()
+  if (stored === 'dark' || stored === 'light') {
+    applyTheme(stored)
+    return
+  }
+
+  applyTheme(systemPrefersDark() ? 'dark' : 'light')
+}
+
+function toggleTheme() {
+  const next = isDarkTheme() ? 'light' : 'dark'
+  localStorage.setItem(THEME_STORAGE_KEY, next)
+  applyTheme(next, { animate: true })
+}
+
+initTheme()
+themeToggle?.addEventListener('click', toggleTheme)
+
 const panels = {
   about: document.querySelector('[data-panel="about"]'),
   work: document.querySelector('[data-panel="work"]'),
@@ -119,9 +183,26 @@ function activeNavLink() {
   return document.querySelector('.site-nav [data-nav].nav-link--active')
 }
 
+const WORK_CLUSTER_MQ = window.matchMedia('(min-width: 40.0625rem)')
+
+function syncBracketWidth() {
+  if (!bracket || !panels.work) return
+
+  const onWork = !panels.work.hidden
+  if (onWork && WORK_CLUSTER_MQ.matches && panels.work.offsetWidth > 0) {
+    bracket.style.width = `${panels.work.offsetWidth}px`
+    bracket.style.maxWidth = '100%'
+  } else {
+    bracket.style.width = ''
+    bracket.style.maxWidth = ''
+  }
+}
+
 function updateBracket() {
   const link = activeNavLink()
   if (!bracket || !bracketLeft || !bracketRight || !link) return
+
+  syncBracketWidth()
 
   const bracketRect = bracket.getBoundingClientRect()
   const linkRect = link.getBoundingClientRect()
@@ -307,7 +388,6 @@ document.fonts?.ready.then(() => {
 const chyronViewport = document.querySelector('.chyron__viewport')
 const chyronTrack = document.querySelector('.chyron__track')
 const chyronGroup = document.querySelector('.chyron__group')
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const CHYRON_SCROLL_PX_PER_SEC = 28
 
@@ -359,7 +439,7 @@ function initChyron() {
   if (!chyronViewport || !chyronTrack) return
 
   measureChyronLoop()
-  chyronAutoScrolling = !prefersReducedMotion
+  chyronAutoScrolling = !prefersReducedMotion()
   if (chyronAutoScrolling) requestAnimationFrame(tickChyron)
 
   chyronViewport.addEventListener(

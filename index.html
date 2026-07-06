@@ -14,8 +14,39 @@
       href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400&display=swap"
       rel="stylesheet"
     />
+    <script>
+      ;(function () {
+        var stored = localStorage.getItem('theme')
+        if (stored === 'dark' || (!stored && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.dataset.theme = 'dark'
+        }
+      })()
+    </script>
   </head>
   <body class="page-typing">
+    <aside class="chyron" aria-label="announcements">
+      <div class="chyron__viewport" tabindex="0">
+        <div class="chyron__track">
+          <div class="chyron__group">
+            <a class="chyron__item" href="https://abdulforsenate.com" target="_blank" rel="noopener noreferrer">Want Medicare for All? Phone bank for Abdul for Senate with us!</a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+            <a class="chyron__item" href="https://buttonschool.com" target="_blank" rel="noopener noreferrer">Curious about vibe coding but allergic to bullshit? Take my friend’s class!</a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+            <a class="chyron__item" href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer">Need a website or campaign with a coherent message? Hit me up!</a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+          </div>
+          <div class="chyron__group" aria-hidden="true">
+            <a class="chyron__item" href="https://abdulforsenate.com" target="_blank" rel="noopener noreferrer" tabindex="-1">Want Medicare for All? Phone bank for Abdul for Senate with us!</a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+            <a class="chyron__item" href="https://buttonschool.com" target="_blank" rel="noopener noreferrer" tabindex="-1">Curious about vibe coding but allergic to bullshit? Take my friend’s class!</a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+            <a class="chyron__item" href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer" tabindex="-1">Need a website or campaign with a coherent message? Hit me up!</a>
+            <span class="chyron__sep" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
     <div class="page page--site">
       <header class="site-header site-header--site">
         <h1 class="site-title">cori is typing<span class="typing-ellipsis" aria-hidden="true"><span class="typing-ellipsis__dot">.</span><span class="typing-ellipsis__dot">.</span><span class="typing-ellipsis__dot">.</span></span></h1>
@@ -31,19 +62,33 @@
       </header>
 
       <main class="about" data-panel="about">
-        <p class="about-greeting">hey, you found me!</p>
-        <p>I'm Cori, an organizer and tech worker who helps humans and computers get along.</p>
-        <p>
-          If you like <a href="#my-work" data-nav="work">my work</a>,
-          feel free to
-          <a href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer">add me</a>
-          as an ethical friend under capitalism.
-        </p>
-        <div class="about-tags about-tags--pronouns">
-          <span class="about-tag about-tag--blue">he/him</span>
-          <span class="about-tag about-tag--rainbow">hey girl hey</span>
-          <span class="about-tag about-tag--red">comrade</span>
-        </div>
+        <section class="help-guide" aria-labelledby="about-heading">
+          <h2 id="about-heading" class="services-heading">hey, you found me!</h2>
+          <ul class="help-guide__list">
+            <li class="help-guide__item">
+              <p class="about-intro help-guide__q">
+                <span class="about-intro__lead">
+                  it’s-a me, Cori-o
+                  <span class="about-tags about-tags--pronouns">
+                    <span class="about-tag about-tag--blue">he/him</span>
+                    <span class="about-tag about-tag--rainbow">hey girl hey</span>
+                    <span class="about-tag about-tag--red">comrade</span>
+                  </span>
+                </span></p>
+                <p>
+                I’m an organizer and tech worker helping humans and computers get along.
+              </p>
+              <p>when AFK, I’m probably at the nearest karaoke bar.</p>
+              <p>
+                If you like <a href="#my-work" data-nav="work">my work</a>,
+                feel free to
+                <a href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer">add me</a>
+                as an ethical friend under capitalism.
+              </p>
+              <p>-c</p>
+            </li>
+          </ul>
+        </section>
       </main>
 
       <main class="work-grid" data-panel="work" hidden>
@@ -136,40 +181,29 @@
       </div>
     </div>
 
-    <aside class="chyron" aria-label="announcements">
-      <div class="chyron__viewport" tabindex="0">
-        <div class="chyron__track">
-          <div class="chyron__group">
-            <a class="chyron__item" href="https://abdulforsenate.com" target="_blank" rel="noopener noreferrer">
-              want medicare for all? phone bank for abdul for senate with me!
-            </a>
-            <span class="chyron__sep" aria-hidden="true"></span>
-            <a class="chyron__item" href="https://buttonschool.com" target="_blank" rel="noopener noreferrer">
-              curious about vibe coding but allergic to bullshit? take my friend's class on ai for product designers!
-            </a>
-            <span class="chyron__sep" aria-hidden="true"></span>
-            <a class="chyron__item" href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer">
-              hire me for your next website or leftist political project
-            </a>
-            <span class="chyron__sep" aria-hidden="true"></span>
-          </div>
-          <div class="chyron__group" aria-hidden="true">
-            <a class="chyron__item" href="https://abdulforsenate.com" target="_blank" rel="noopener noreferrer" tabindex="-1">
-              want medicare for all? phone bank for abdul for senate with me!
-            </a>
-            <span class="chyron__sep" aria-hidden="true"></span>
-            <a class="chyron__item" href="https://buttonschool.com" target="_blank" rel="noopener noreferrer" tabindex="-1">
-              curious about vibe coding but allergic to bullshit? take my friend's class on ai for product designers!
-            </a>
-            <span class="chyron__sep" aria-hidden="true"></span>
-            <a class="chyron__item" href="https://linkedin.com/in/corij" target="_blank" rel="noopener noreferrer" tabindex="-1">
-              hire me for your next website or leftist political project
-            </a>
-            <span class="chyron__sep" aria-hidden="true"></span>
-          </div>
-        </div>
-      </div>
-    </aside>
+    <button
+      type="button"
+      class="theme-toggle"
+      aria-label="Toggle dark mode"
+      aria-pressed="false"
+    >
+      <svg class="theme-toggle__icon" viewBox="0 0 48 48" aria-hidden="true">
+        <path
+          class="theme-toggle__moon"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M28 10a14 14 0 1 0 8 24 11 11 0 0 1-8-24z"
+        />
+        <path
+          class="theme-toggle__star"
+          fill="currentColor"
+          d="M38 8l1.1 2.4 2.5.4-1.8 1.7.4 2.5-2.2-1.2-2.2 1.2.4-2.5-1.8-1.7 2.5-.4z"
+        />
+      </svg>
+    </button>
 
     <script type="module" src="/src/main.js"></script>
   </body>
