@@ -1,17 +1,73 @@
-I'm planning 3 different websites. This repo will host the code for the first one, and ideas for the other 2.
+# cori.is/typing
 
-(1) cori.is/typing - my personal site, which links out to (2) my portfolio, cuttingwords.com, and (3) my activist consultancy, hardly.services (working title).
+Personal hub. Napkin-sketch site that routes people to the right room.
 
-1. Cori is typing
-I'd like this to be simple, with 2 sections (about and "work" in quotations) but also look like it was drawn on the back of a napkin. Refer to site-sketch.png for a visual example to emulate.
+This repo is **dotis only**. Cutting Words and Hardly are separate repos with their own brainstorms and shipping cycles. Do not implement sister-site features here.
 
-The "work" subpage should link to the 2 websites listed, and also have a "secret third thing" which might be a microblog with a signup for newsletter digests, if I decide to commit to it.
+| Site | Repo | Domain | Planning |
+|------|------|--------|----------|
+| cori.is/typing | [dotis](https://github.com/corix/dotis) (this repo) | cori.is/typing | this file |
+| Cutting Words | [cuttingwords](https://github.com/corix/cuttingwords) | cuttingwords.com | [brainstorm-cuttingwords.md](https://github.com/corix/cuttingwords/blob/main/brainstorm-cuttingwords.md) |
+| Hardly | [hardly](https://github.com/corix/hardly) | hardly.consulting | [brainstorm-hardly.md](https://github.com/corix/hardly/blob/main/brainstorm-hardly.md) |
 
-2. Cutting Words
-The portfolio, Cutting Words, is for my professional work in tech as a web, UX, product designer (content design/UX writing specialization), and product design manager. It's for hiring managers, in the hopes that my profession hasn't gone completely extinct. I am available for full time work and contracts. I work remotely, but I'm also willing to swoop in and camp out for a few months. 
-(Note: content currently live on cori.is, Notion pages to migrate)
+---
 
-3. Hardly Services
-The services website is for nonprofits and left-leaning political campaigns to know what I offer, both as a paid consultant and as a prospective volunteer/pro bono worker. This includes design (might include a reference to cuttingwords for websites) but also directing volunteer enablement: phone bank operations, recruitment, designing campaigns in Scale to Win, coordinating secure digitization of records by hand, and research/dev projects that include pulling precinct election returns, cleaning and reformatting and visualizing the data.
+## This site
 
-A few orgs/campaigns I've helped: Zohran for NYC - NY General 2025 (volunteer coordination/spreadsheet management), Abdul for Senate - MI Primary 2026 (tech, phone bank ops), Rae for LA (website content), local Pride organization (prideonthepier.org).
+- `#about` — personal intro
+- `#my-work` — teaser cards → cuttingwords.com, hardly.consulting
+- `#etc` — audience routing (hiring manager → CW, campaign/nonprofit → Hardly)
+
+**Tone:** napkin sketch, personal, witty. Visual reference: `site-sketch.png`.
+
+**Backlog:** “secret third thing” — possible microblog + newsletter digest. Not committed.
+
+---
+
+## Outbound links (this repo)
+
+Keep these live in `index.html`. Sister-site internals live in their repos.
+
+| From | To |
+|------|-----|
+| Work panel left | https://cuttingwords.com |
+| Work panel right | https://hardly.consulting |
+| Etc → hiring manager | https://cuttingwords.com |
+| Etc → campaign / nonprofit | https://hardly.consulting |
+
+---
+
+## Shared styles
+
+Copy, don’t import. Each site owns its CSS; when you change a **shared** value, update this block and then the sister repos.
+
+**Shared DNA**
+
+```css
+--paper: #faf8f5;
+--ink: #1a1a1a;
+--text: #0f0f0f;
+--font: 'Overpass', sans-serif;
+--font-mono: 'Overpass Mono', monospace;
+```
+
+- Dark mode: `data-theme="dark"` on `<html>`
+- Theme storage: `localStorage` key `theme` (same key on all three sites)
+- Theme flash snippet in `<head>` before paint
+- Footer / eyebrow: each site links to the other two with audience-appropriate labels
+
+**Per-site (do not unify)**
+
+| Token / trait | dotis | Cutting Words | Hardly |
+|---------------|-------|---------------|--------|
+| `--accent` | `#e69138` | `#c45c26` | `#e69138` (same as dotis) |
+| `--page-width` | `48rem` | `42rem` | `48rem` |
+| Aesthetic | napkin sketch | polished portfolio | grassroots / civic |
+
+Hardly may stay closer to this site visually. Cutting Words should not flatten toward napkin energy.
+
+---
+
+## Original notes (this site)
+
+Simple: about and “work,” drawn on the back of a napkin. Work links out to Cutting Words (portfolio for hiring managers) and Hardly (consultancy for campaigns and nonprofits). Personality stays here; professional depth and civic ops live on the sister sites.
